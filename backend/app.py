@@ -8,7 +8,7 @@ CORS(app, origins=["http://localhost:5173"])  # Handle cors error
 def index():
     return jsonify({
         "message": "Hello from backend!",
-        "bye":"bye"
+        "bye":"bye error"
              }
     )
 
