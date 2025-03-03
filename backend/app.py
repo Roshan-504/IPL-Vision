@@ -1,8 +1,9 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from routes import batter
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])  # Handle cors error
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Handle cors error
 
 @app.route("/")
 def index():
@@ -12,19 +13,13 @@ def index():
              }
     )
 
-@app.route("/chart")
-def chart():
-    return jsonify({
-            "labels": ["Roshan", "kavi", "Mar", "Apr", "May"],
-            "datasets": [
-            {
-                "label": "Sales",
-                "data": [30, 50, 80, 40, 100],
-                "backgroundColor": "rgba(75, 192, 192, 0.6)",
-            },
-            ],
-        }
-    )
+@app.route("/get-total-players")
+def getTotalPlayers():
+    total_players = batter.get_total_players()
+    data = {"total_playes" : total_players}
+    data = jsonify(data)
+
+    return data
 
 
 if __name__ == "__main__":
