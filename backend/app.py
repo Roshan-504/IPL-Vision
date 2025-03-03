@@ -12,5 +12,20 @@ def index():
              }
     )
 
+@app.route("/chart")
+def chart():
+    return jsonify({
+            "labels": ["Roshan", "kavi", "Mar", "Apr", "May"],
+            "datasets": [
+            {
+                "label": "Sales",
+                "data": [30, 50, 80, 40, 100],
+                "backgroundColor": "rgba(75, 192, 192, 0.6)",
+            },
+            ],
+        }
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

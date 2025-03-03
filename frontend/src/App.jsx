@@ -1,29 +1,26 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React from "react";
+import Navbar from "./components/Navbar";
+import { Route, Router, Routes } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Batter from "./pages/Batter";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
-function App() {
+const App = () => {
 
-  const [data,setData] = useState("")
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Convert response to JSON
-      })
-      .then(data => setData(data)) // Store JSON data in state
-      .catch(error => console.error("Error fetching data:", error));
-  }, []);
-
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-    {data ? JSON.stringify(data, null, 2) : "Loading..."}
-  </h1>
-    </>
-  )
+    return(
+        <>
+            
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+            
+        </>
+    )
 }
 
-export default App
+export default App;
