@@ -21,7 +21,7 @@ function SearchBar({ label, placeholder, onSelect, width = "30vw", api }) {
                 setError(null);
             })
             .catch(error => {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching data in searchbar:", error);
                 setError("Failed to load data");
             })
             .finally(() => setLoading(false));
@@ -55,7 +55,7 @@ function SearchBar({ label, placeholder, onSelect, width = "30vw", api }) {
                 <div className="border border-gray-500 rounded-lg bg-white space-x-2 p-2">
                     <input
                         type="text"
-                        placeholder={`${placeholder}. . .`}
+                        placeholder={`${placeholder}`}
                         value={searchTerm}
                         onChange={handleInputChange}
                         onClick={() => setShowSuggestions(true)}

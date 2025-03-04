@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
 
-        <div className="flex">
+        <div className="flex overflow-x-auto">
             <Sidebar/>
             <Batter/>
         </div>

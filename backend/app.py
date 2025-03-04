@@ -18,9 +18,13 @@ def getTotalPlayers():
     total_players = batter.get_total_players()
     data = {"total_playes" : total_players}
     data = jsonify(data)
-
     return data
 
+@app.route("/get-batter-info/<batter_name>")
+def getBatterInfo(batter_name):
+    data = batter.get_batter_info(batter_name)
+    data = jsonify(data)
+    return data
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const useBatterStore = create((set) => ({
-    selectedBatter: null,
+    selectedBatter: "V Kohli",
     setSelectedBatter: (player) => set({ selectedBatter: player }),
 }));
 
