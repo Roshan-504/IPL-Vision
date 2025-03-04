@@ -26,7 +26,7 @@ function Batter() {
     },[selectedBatter])
 
   return (
-    <div className='w-4/5 bg-slate-200 p-6 '>
+    <div className=' bg-slate-200 p-6 '>
         <SearchBar label="Search Batters " placeholder="V kohli" onSelect={setSelectedBatter} width="30vw" api="get-total-players" />
 
         <div className='pt-6 flex gap-5'>

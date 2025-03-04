@@ -6,9 +6,11 @@ function Home() {
   return (
     <div>
 
-        <div className="flex overflow-x-auto">
+        <div className="flex">
             <Sidebar/>
-            <Batter/>
+            <div className='w-4/5 h-[calc(100vh-4rem)] overflow-y-scroll scrollbar-hidden'>
+                <Batter/>
+            </div>
         </div>
 
     </div>
