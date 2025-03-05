@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../lib/axios.js";
+import { IoSearch } from "react-icons/io5";
 
 function SearchBar({ label, placeholder, onSelect, width = "30vw", api }) {  
     const [searchTerm, setSearchTerm] = useState("");
@@ -50,9 +51,10 @@ function SearchBar({ label, placeholder, onSelect, width = "30vw", api }) {
 
     return (
         <div className="flex items-center">
-            <h1 className="text-xl font-medium pr-3">{label}:</h1>
+            <h1 className="text-xl font-medium ">{label}</h1>
             <div className="relative" style={{ width }}>  
-                <div className="border border-gray-500 rounded-lg bg-white space-x-2 p-2">
+                <div className="border flex items-center border-gray-300 shadow-amber-50 rounded-lg bg-white space-x-2 p-2">
+                    <IoSearch className="text-gray-700" size={28}/>
                     <input
                         type="text"
                         placeholder={`${placeholder}`}

@@ -12,7 +12,7 @@ function SmallCard({ topic, value, description, height = "30vh", width = "30vw",
 
         <div className="flex items-center justify-between">
             <div className="text-gray-800 text-lg">{topic}</div>
-            <div className="bg-gray-300 p-1 rounded-full"> {icon ? icon : <MdOutlineSportsCricket size={20}/>} </div>
+            <div className="bg-blue-100 text-blue-800 p-1 rounded-full"> {icon ? icon : <MdOutlineSportsCricket size={20}/>} </div>
         </div>
         <div className="font-medium text-2xl">{value}</div>
         

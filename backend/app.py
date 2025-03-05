@@ -26,5 +26,11 @@ def getBatterInfo(batter_name):
     data = jsonify(data)
     return data
 
+@app.route("/get_season_vs_runs/<batter_name>")
+def getSeasonVsRuns(batter_name):
+    data = batter.seasons_vs_runs(batter_name)
+    data = jsonify(data)
+    return data
+
 if __name__ == "__main__":
     app.run(debug=True)

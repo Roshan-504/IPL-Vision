@@ -7,7 +7,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 function Sidebar() {
   return (
         <div className="h-[calc(100vh-4rem)] w-1/5 bg-slate-50 py-8 px-10">
-            <div className="text-gray-900 flex text-lg cursor-pointer rounded-lg py-2 px-2 my-1 bg-blue-400 hover:bg-blue-400">
+            <div className="text-white flex text-lg cursor-pointer rounded-lg py-2 px-2 my-1 bg-blue-400 hover:bg-blue-400">
                 <MdSportsCricket className='' size={28} />
                 <a className="px-1" href="/batter">Batter Analysis</a>
             </div>
