@@ -81,9 +81,61 @@ def seasons_vs_runs(batter_name):
 
     # Return after processing all seasons
     data =  {
-        'seasonName': season_name,
-        'seasonRuns': season_runs
+        'season': season_name,
+        'Runs Per Season': season_runs
     }
     return data
 
+def fours_per_season(batter_name):
+    matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
 
+    # Store results
+    season_name = []
+    season_runs_four = []
+
+    # Iterate over each season
+    for index, row in matches_per_season.iterrows():
+        selected_season = row["season"]
+        match_ids_for_season = row["id"]  # This is already a list of match_ids
+
+        # Filter deliveries for selected season
+        season_data = deliveries[deliveries["match_id"].isin(match_ids_for_season)]
+        
+        # Count the number of sixes hit by the given batter
+        total_four = int(season_data[(season_data["batter"] == batter_name) & (season_data["batsman_runs"] == 4)]["batsman_runs"].count())
+
+        # Append results
+        season_name.append(selected_season)
+        season_runs_four.append(total_four)
+
+    # Create DataFrame for results
+    data = {"season": season_name, "Total Fours": season_runs_four}
+
+    return data
+
+def sixes_per_season(batter_name):
+    matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
+
+    # Store results
+    season_name = []
+    season_runs_six = []
+
+    # Iterate over each season
+    for index, row in matches_per_season.iterrows():
+        selected_season = row["season"]
+        match_ids_for_season = row["id"]  # This is already a list of match_ids
+
+        # Filter deliveries for selected season
+        season_data = deliveries[deliveries["match_id"].isin(match_ids_for_season)]
+        
+        # Count the number of sixes hit by the given batter
+        total_sixes = int(season_data[(season_data["batter"] == batter_name) & (season_data["batsman_runs"] == 6)]["batsman_runs"].count())
+
+        # Append results
+        season_name.append(selected_season)
+        season_runs_six.append(total_sixes)
+
+    # Create DataFrame for results
+    data = {"season": season_name, "Total Sixes": season_runs_six}
+
+    return data

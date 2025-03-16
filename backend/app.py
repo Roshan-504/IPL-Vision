@@ -26,9 +26,21 @@ def getBatterInfo(batter_name):
     data = jsonify(data)
     return data
 
-@app.route("/get_season_vs_runs/<batter_name>")
+@app.route("/get-season-vs-runs/<batter_name>")
 def getSeasonVsRuns(batter_name):
     data = batter.seasons_vs_runs(batter_name)
+    data = jsonify(data)
+    return data
+
+@app.route("/fours-per-season/<batter_name>")
+def getFoursPerSeason(batter_name):
+    data = batter.fours_per_season(batter_name)
+    data = jsonify(data)
+    return data
+
+@app.route("/sixes-per-season/<batter_name>")
+def getSixesPerSeason(batter_name):
+    data = batter.sixes_per_season(batter_name)
     data = jsonify(data)
     return data
 
