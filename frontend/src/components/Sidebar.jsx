@@ -18,6 +18,11 @@ function Sidebar() {
             </div>
 
             <div className="text-gray-900 flex text-lg cursor-pointer rounded-lg py-2 px-2 my-1 hover:bg-blue-400">
+                <BiSolidCricketBall className='' size={28} />
+                <a className="px-1" href="/batter">Batter VS Boller</a>
+            </div>
+
+            <div className="text-gray-900 flex text-lg cursor-pointer rounded-lg py-2 px-2 my-1 hover:bg-blue-400">
                 <RiTeamFill className='' size={28} />
                 <a className="px-1" href="/batter">Team Analysis</a>
             </div>

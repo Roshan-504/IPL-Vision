@@ -6,7 +6,7 @@ import useBatterStore from "../store/batterStore.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler );
 
-const LineChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graphWidth = "37vw", urls = ["/get-season-vs-runs/V Kohli"], yLabel = "Runs", xLabel = "Seasons", graphTitle = "Runs Per Season"}) => {
+const LineChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graphWidth = "37vw", urls = ["/get-season-vs-runs/V Kohli"], yLabel = "Runs", xLabel = "Seasons", graphTitle = "Runs Per Season", colors = [ "#36a2eb", "#4bc0c0", "#9966ff","#018749","#ff033e","#f400a1"]}) => {
     const { selectedBatter } = useBatterStore();
     const [apiData, setApiData] = useState([]);
     const [apiDataName, setApiDataName] = useState([]);
@@ -46,7 +46,6 @@ const LineChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", grap
         fetchData();
     }, [selectedBatter]);
 
-    const colors = ["#ff6384", "#36a2eb", "#ffce56", "#4bc0c0", "#9966ff", "#ff9f40"];
 
     const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
 

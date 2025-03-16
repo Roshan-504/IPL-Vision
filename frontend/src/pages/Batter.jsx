@@ -38,8 +38,8 @@ function Batter() {
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]}/>
-            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Total Boundries' />
+            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} colors={["#f400a1"]}/>
+            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' />
         </div>
 
         <div className='mt-8 flex justify-between'>
