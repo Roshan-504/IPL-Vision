@@ -81,7 +81,7 @@ def seasons_vs_runs(batter_name):
 
     # Return after processing all seasons
     data =  {
-        'season': season_name,
+        'label': season_name,
         'Runs Per Season': season_runs
     }
     return data
@@ -109,7 +109,7 @@ def fours_per_season(batter_name):
         season_runs_four.append(total_four)
 
     # Create DataFrame for results
-    data = {"season": season_name, "Total Fours": season_runs_four}
+    data = {"label": season_name, "Total Fours": season_runs_four}
 
     return data
 
@@ -136,6 +136,118 @@ def sixes_per_season(batter_name):
         season_runs_six.append(total_sixes)
 
     # Create DataFrame for results
-    data = {"season": season_name, "Total Sixes": season_runs_six}
+    data = {"label": season_name, "Total Sixes": season_runs_six}
+
+    return data
+
+def batter_dismissal_types(batter_name):
+    dismissals = deliveries[deliveries["player_dismissed"] == batter_name]["dismissal_kind"].value_counts()
+
+    data = {
+        "Dismissal Type": dismissals.index.tolist(),  # Convert Index to list
+        "Dismissal Count": dismissals.values.tolist()  # Convert int64 to Python int
+    }
+
+    return data
+
+def avg_strike_rate_per_season(batter_name):
+    season_name = []
+    batting_avg = []
+    Strike_Rate = []
+
+
+    matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
+
+    # Create DataFrame with season and match IDs
+    season_match_ids = pd.DataFrame({
+        "season": matches_per_season["season"],
+        "match_ids": matches_per_season["id"]
+    })
+
+    # Iterate over each season
+    for selected_season in season_match_ids["season"]:
+        
+        season_name.append(selected_season)
+        
+        # Get match IDs for the selected season
+        match_ids_for_season = season_match_ids.loc[season_match_ids["season"] == selected_season, "match_ids"].iloc[0]
+        
+        # Filter deliveries dataset for the selected season
+        season_data = deliveries[deliveries["match_id"].isin(match_ids_for_season)]
+
+        # Total Dismissals (count of player_dismissed occurrences)
+        total_dismissals = season_data[season_data["player_dismissed"] == batter_name].shape[0]
+        
+        # Get total runs for the batter
+        total_runs = season_data[season_data["batter"] == batter_name]["batsman_runs"].sum().item()
+
+        # Batting Average  If a player is never dismissed, the average is set to infinity.
+        batting_average = f"{total_runs / total_dismissals:.2f}" if total_dismissals > 0 else float('inf')
+        
+        batting_avg.append(batting_average)
+
+        # Filter deliveries where the player is the batter
+        player_data = season_data[season_data["batter"] == batter_name]
+
+        # Total Balls Faced
+        total_balls_faced = player_data.shape[0]
+
+        # Strike Rate Formula
+        strike_rate = f"{(total_runs / total_balls_faced) * 100:.2f}" if total_balls_faced > 0 else 0
+
+        Strike_Rate.append(strike_rate)
+
+    data = {
+        "label":season_name,"battingAvg":batting_avg,"strikeRate":Strike_Rate
+    }
+    
+    return data
+
+
+def half_centuries_and_centuries_per_season(batter_name):
+    season_name = []
+    half_centuries = []
+    full_centuries = []
+
+    # Group match IDs by season
+    matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
+
+    # Create DataFrame with season and match IDs
+    season_match_ids = pd.DataFrame({
+        "season": matches_per_season["season"],
+        "match_ids": matches_per_season["id"]
+    })
+
+    for selected_season in season_match_ids["season"]:
+
+        season_name.append(selected_season)
+
+        # Get match IDs for the selected season
+        match_ids_for_season = season_match_ids.loc[season_match_ids["season"] == selected_season, "match_ids"].values[0]  
+
+        half_centuries_count = 0
+        full_centuries_count = 0
+        for match_id in match_ids_for_season:
+
+            # Filter deliveries dataset for the selected match
+            season_data = deliveries[deliveries["match_id"] == match_id]
+
+            # Get total runs for the batter in that match
+            total_runs = season_data[season_data["batter"] == batter_name]["batsman_runs"].sum()
+
+            if 50 <= total_runs < 100:
+                half_centuries_count += 1
+            elif total_runs >= 100:
+                full_centuries_count += 1
+
+        half_centuries.append(half_centuries_count)
+        full_centuries.append(full_centuries_count)
+
+    # Create final DataFrame
+    data = {
+        "label": season_name,
+        "Half Centuries": half_centuries,
+        "Centuries": full_centuries
+    }
 
     return data

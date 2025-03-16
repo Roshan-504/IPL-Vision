@@ -8,6 +8,9 @@ import { LiaMedalSolid } from "react-icons/lia";
 import { VscGraph } from "react-icons/vsc";
 import { RxLightningBolt } from "react-icons/rx";
 import LineChart from '../components/LineChart.jsx';
+import PieChart from '../components/PieChart.jsx';
+import RadarChart from '../components/RadarChart.jsx';
+import DoughnutChart from '../components/DoughnutChart.jsx';
 
 function Batter() {
 
@@ -38,13 +41,18 @@ function Batter() {
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} colors={["#f400a1"]}/>
+            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} />
             <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' />
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart/>
-            <LineChart/>
+            <LineChart urls={[`half-centuries-and-centuries-per-season/${selectedBatter}`]} graphTitle='Centuries And Half Centuries Per Season' />
+            <LineChart urls={[`avg-strike-rate-per-season/${selectedBatter}`]} graphTitle='Season-Wise Performance' />
+        </div>
+
+        <div className='mt-8 flex justify-between'>
+            <PieChart graphTitle='Dismissal types' url= {`batter-dismissal-types/${selectedBatter}`} />
+            <DoughnutChart url= {`batter-dismissal-types/${selectedBatter}`} graphTitle='Dismissal types' />
         </div>
 
         

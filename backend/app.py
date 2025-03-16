@@ -44,5 +44,24 @@ def getSixesPerSeason(batter_name):
     data = jsonify(data)
     return data
 
+@app.route("/batter-dismissal-types/<batter_name>")
+def batterDissmissalTypes(batter_name):
+    data = batter.batter_dismissal_types(batter_name)
+    data = jsonify(data)
+    return data
+
+@app.route("/avg-strike-rate-per-season/<batter_name>")
+def avgStrikeRatePerSeason(batter_name):
+    data = batter.avg_strike_rate_per_season(batter_name)
+    data = jsonify(data)
+    return data
+
+
+@app.route("/half-centuries-and-centuries-per-season/<batter_name>")
+def half_centuries_and_centuries_per_season(batter_name):
+    data = batter.half_centuries_and_centuries_per_season(batter_name)
+    data = jsonify(data)
+    return data
+
 if __name__ == "__main__":
     app.run(debug=True)
