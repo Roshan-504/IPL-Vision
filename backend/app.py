@@ -1,67 +1,18 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from routes import batter
+from controllers import batter_controller
+from controllers import bowler_controller
+from route.batter_route import batter_bp  
+from route.bowler_route import bowler_bp
+
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Handle cors error
 
-@app.route("/")
-def index():
-    return jsonify({
-        "message": "Hello from backend!",
-        "bye":"bye error kavi Roshan"
-             }
-    )
+app.register_blueprint(batter_bp)
+app.register_blueprint(bowler_bp)
 
-@app.route("/get-total-players")
-def getTotalPlayers():
-    total_players = batter.get_total_players()
-    data = {"total_playes" : total_players}
-    data = jsonify(data)
-    return data
-
-@app.route("/get-batter-info/<batter_name>")
-def getBatterInfo(batter_name):
-    data = batter.get_batter_info(batter_name)
-    data = jsonify(data)
-    return data
-
-@app.route("/get-season-vs-runs/<batter_name>")
-def getSeasonVsRuns(batter_name):
-    data = batter.seasons_vs_runs(batter_name)
-    data = jsonify(data)
-    return data
-
-@app.route("/fours-per-season/<batter_name>")
-def getFoursPerSeason(batter_name):
-    data = batter.fours_per_season(batter_name)
-    data = jsonify(data)
-    return data
-
-@app.route("/sixes-per-season/<batter_name>")
-def getSixesPerSeason(batter_name):
-    data = batter.sixes_per_season(batter_name)
-    data = jsonify(data)
-    return data
-
-@app.route("/batter-dismissal-types/<batter_name>")
-def batterDissmissalTypes(batter_name):
-    data = batter.batter_dismissal_types(batter_name)
-    data = jsonify(data)
-    return data
-
-@app.route("/avg-strike-rate-per-season/<batter_name>")
-def avgStrikeRatePerSeason(batter_name):
-    data = batter.avg_strike_rate_per_season(batter_name)
-    data = jsonify(data)
-    return data
-
-
-@app.route("/half-centuries-and-centuries-per-season/<batter_name>")
-def half_centuries_and_centuries_per_season(batter_name):
-    data = batter.half_centuries_and_centuries_per_season(batter_name)
-    data = jsonify(data)
-    return data
 
 if __name__ == "__main__":
     app.run(debug=True)
+

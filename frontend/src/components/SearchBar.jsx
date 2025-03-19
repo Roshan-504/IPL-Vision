@@ -17,8 +17,8 @@ function SearchBar({ label, placeholder, onSelect, width = "30vw", api }) {
         setLoading(true);
         axiosInstance.get(api)
             .then((response) => {
-                setData(response.data.total_playes || []);
-                setFilteredSuggestions(response.data.total_playes || []);
+                setData(response.data.data || []);
+                setFilteredSuggestions(response.data.data || []);
                 setError(null);
             })
             .catch(error => {

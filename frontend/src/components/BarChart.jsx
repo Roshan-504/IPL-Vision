@@ -55,7 +55,8 @@ const BarChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graph
             return {
                 label: apiDataName[index] || `Dataset ${index + 1}`,
                 data: dataSet,
-                backgroundColor: color, // Bar color
+                borderColor: `${color}`,
+                backgroundColor: `${color}60`, // Bar color
                 borderWidth: 1,
             };
         }),

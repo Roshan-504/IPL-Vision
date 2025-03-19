@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from flask import jsonify
 
 deliveries = pd.read_csv("./datasets/deliveries.csv")
 matches = pd.read_csv("./datasets/matches.csv")
@@ -13,7 +14,7 @@ def get_total_players():
     total_platers = list(total_platers)
     total_platers.sort()
 
-    return total_platers
+    return jsonify({"data" : total_platers})
 
 def get_batter_info(batter_name):
     total_matches_played = int(deliveries[(deliveries["batter"] == batter_name) | (deliveries["non_striker"] == batter_name)]["match_id"].nunique())
@@ -47,7 +48,7 @@ def get_batter_info(batter_name):
         "highest_score" : highest_score
     }
 
-    return data
+    return jsonify(data)
 
     
 def seasons_vs_runs(batter_name):
@@ -84,7 +85,7 @@ def seasons_vs_runs(batter_name):
         'label': season_name,
         'Runs Per Season': season_runs
     }
-    return data
+    return jsonify(data)
 
 def fours_per_season(batter_name):
     matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
@@ -111,7 +112,7 @@ def fours_per_season(batter_name):
     # Create DataFrame for results
     data = {"label": season_name, "Total Fours": season_runs_four}
 
-    return data
+    return jsonify(data)
 
 def sixes_per_season(batter_name):
     matches_per_season = matches.groupby("season")["id"].apply(list).reset_index()
@@ -138,7 +139,7 @@ def sixes_per_season(batter_name):
     # Create DataFrame for results
     data = {"label": season_name, "Total Sixes": season_runs_six}
 
-    return data
+    return jsonify(data)
 
 def batter_dismissal_types(batter_name):
     dismissals = deliveries[deliveries["player_dismissed"] == batter_name]["dismissal_kind"].value_counts()
@@ -148,7 +149,7 @@ def batter_dismissal_types(batter_name):
         "Dismissal Count": dismissals.values.tolist()  # Convert int64 to Python int
     }
 
-    return data
+    return jsonify(data)
 
 def avg_strike_rate_per_season(batter_name):
     season_name = []
@@ -182,7 +183,7 @@ def avg_strike_rate_per_season(batter_name):
         total_runs = season_data[season_data["batter"] == batter_name]["batsman_runs"].sum().item()
 
         # Batting Average  If a player is never dismissed, the average is set to infinity.
-        batting_average = f"{total_runs / total_dismissals:.2f}" if total_dismissals > 0 else float('inf')
+        batting_average = f"{total_runs / total_dismissals:.2f}" if total_dismissals > 0 else 0
         
         batting_avg.append(batting_average)
 
@@ -201,7 +202,7 @@ def avg_strike_rate_per_season(batter_name):
         "label":season_name,"battingAvg":batting_avg,"strikeRate":Strike_Rate
     }
     
-    return data
+    return jsonify(data)
 
 
 def half_centuries_and_centuries_per_season(batter_name):
@@ -250,4 +251,17 @@ def half_centuries_and_centuries_per_season(batter_name):
         "Centuries": full_centuries
     }
 
-    return data
+    return jsonify(data)
+
+def most_dismissed_by_bowler(batter_name):
+    bowler_dismissals = ["caught", "bowled", "lbw", "caught and bowled", "stumped", "hit wicket"]
+
+    dismissals = deliveries[deliveries["player_dismissed"] == batter_name]
+    bowlers = dismissals[dismissals["dismissal_kind"].isin(bowler_dismissals)].value_counts("bowler").sort_values(ascending=False).head(10)
+
+    data = {
+        "label" : bowlers.index.tolist(),
+        "Wicket Count" : bowlers.values.tolist()
+    }
+
+    return jsonify(data)

@@ -28,7 +28,6 @@ const LineChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", grap
 
                     for(let i in data){
                         if(i == "label") continue
-                        console.log(i)
                         newApiData.push(data[i]);
                         newApiDataName.push(i)
                     }

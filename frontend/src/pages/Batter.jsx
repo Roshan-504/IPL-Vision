@@ -11,12 +11,13 @@ import LineChart from '../components/LineChart.jsx';
 import PieChart from '../components/PieChart.jsx';
 import RadarChart from '../components/RadarChart.jsx';
 import DoughnutChart from '../components/DoughnutChart.jsx';
+import BarChart from '../components/BarChart.jsx';
+import { BiDoughnutChart } from 'react-icons/bi';
 
 function Batter() {
 
     const {selectedBatter , setSelectedBatter} = useBatterStore();
     const [batterInfo, setBatterInfo] = useState({})
-    console.log(selectedBatter)
 
     useEffect( () => {
         axiosInstance.get(`get-batter-info/${selectedBatter}`)
@@ -42,17 +43,17 @@ function Batter() {
 
         <div className='mt-8 flex justify-between'>
             <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} />
-            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' />
+            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' yLabel='Boundrie Count' />
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart urls={[`half-centuries-and-centuries-per-season/${selectedBatter}`]} graphTitle='Centuries And Half Centuries Per Season' />
+            <LineChart urls={[`half-centuries-and-centuries-per-season/${selectedBatter}`]} graphTitle='Centuries And Half Centuries Per Season' yLabel='Count' />
             <LineChart urls={[`avg-strike-rate-per-season/${selectedBatter}`]} graphTitle='Season-Wise Performance' />
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <PieChart graphTitle='Dismissal types' url= {`batter-dismissal-types/${selectedBatter}`} />
-            <DoughnutChart url= {`batter-dismissal-types/${selectedBatter}`} graphTitle='Dismissal types' />
+            <DoughnutChart graphTitle='Dismissal types' dependency={selectedBatter} url= {`batter-dismissal-types/${selectedBatter}`} />
+            <BarChart urls= {[`most-dismissed-by-bowler/${selectedBatter}`]} graphTitle='Dismissal By Top Bowlers' />
         </div>
 
         
