@@ -42,18 +42,18 @@ function Batter() {
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} />
-            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' yLabel='Boundrie Count' />
+            <LineChart urls={[`get-season-vs-runs/${selectedBatter}`]} dependency={selectedBatter} />
+            <LineChart urls={[`sixes-per-season/${selectedBatter}`,`fours-per-season/${selectedBatter}`]} graphTitle='Boundries Per Season' yLabel='Boundrie Count' dependency={selectedBatter} />
         </div>
 
         <div className='mt-8 flex justify-between'>
-            <LineChart urls={[`half-centuries-and-centuries-per-season/${selectedBatter}`]} graphTitle='Centuries And Half Centuries Per Season' yLabel='Count' />
-            <LineChart urls={[`avg-strike-rate-per-season/${selectedBatter}`]} graphTitle='Season-Wise Performance' />
+            <LineChart urls={[`half-centuries-and-centuries-per-season/${selectedBatter}`]} graphTitle='Centuries And Half Centuries Per Season' yLabel='Count' dependency={selectedBatter} />
+            <LineChart urls={[`avg-strike-rate-per-season/${selectedBatter}`]} graphTitle='Season-Wise Performance' dependency={selectedBatter}/>
         </div>
 
         <div className='mt-8 flex justify-between'>
             <DoughnutChart graphTitle='Dismissal types' dependency={selectedBatter} url= {`batter-dismissal-types/${selectedBatter}`} />
-            <BarChart urls= {[`most-dismissed-by-bowler/${selectedBatter}`]} graphTitle='Dismissal By Top Bowlers' />
+            <BarChart urls= {[`most-dismissed-by-bowler/${selectedBatter}`]} graphTitle='Dismissal By Top Bowlers' dependency={selectedBatter}/>
         </div>
 
         

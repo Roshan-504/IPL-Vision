@@ -4,6 +4,7 @@ from controllers import batter_controller
 from controllers import bowler_controller
 from route.batter_route import batter_bp  
 from route.bowler_route import bowler_bp
+from route.team_route import team_bp
 
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Handl
 
 app.register_blueprint(batter_bp)
 app.register_blueprint(bowler_bp)
+app.register_blueprint(team_bp)
 
 
 if __name__ == "__main__":

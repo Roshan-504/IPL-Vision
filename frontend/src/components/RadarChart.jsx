@@ -6,7 +6,7 @@ import useBatterStore from "../store/batterStore.js";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const RadarChart = ({ height = "50vh", width = "37vw", url = "/batter-dismissal-types/V Kohli", color = "#36a2eb" }) => {
+const RadarChart = ({ height = "50vh", width = "37vw", dependency, url = "/batter-dismissal-types/V Kohli", color = "#36a2eb" }) => {
     const { selectedBatter } = useBatterStore();
     const [dismissalData, setDismissalData] = useState([]);
     const [dismissalLabels, setDismissalLabels] = useState([]);
@@ -30,7 +30,7 @@ const RadarChart = ({ height = "50vh", width = "37vw", url = "/batter-dismissal-
         };
 
         fetchData();
-    }, [selectedBatter]);
+    }, [dependency]);
 
     const radarData = {
         labels: dismissalLabels,

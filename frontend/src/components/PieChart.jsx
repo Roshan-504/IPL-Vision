@@ -6,7 +6,7 @@ import useBatterStore from "../store/batterStore.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graphWidth = "37vw", graphTitle = "Runs Per Season", url = "/batter-dismissal-types/V Kohli", colors = ["#ff6384", "#36a2eb", "#ffce56", "#4bc0c0", "#9966ff", "#ff9f40",  "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6"] }) => {
+const PieChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graphWidth = "37vw", graphTitle = "Runs Per Season", dependency, url = "/batter-dismissal-types/V Kohli", colors = ["#ff6384", "#36a2eb", "#ffce56", "#4bc0c0", "#9966ff", "#ff9f40",  "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6"] }) => {
     const { selectedBatter } = useBatterStore();
     const [apiData, setApiData] = useState([]);
     const [apiLabels, setApiLabels] = useState([]);
@@ -31,7 +31,7 @@ const PieChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", graph
         };
 
         fetchData();
-    }, [selectedBatter]);
+    }, [dependency]);
 
     const pieData = {
         labels: apiLabels,
