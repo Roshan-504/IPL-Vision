@@ -1,49 +1,7 @@
 import pandas as pd
 import numpy as np
 from flask import jsonify
-
-deliveries = pd.read_csv("./datasets/deliveries.csv")
-matches = pd.read_csv("./datasets/matches.csv")
-team_info = pd.read_csv("./datasets/teams_info.csv")
-
-matches["team1"] = matches["team1"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
-matches["team2"] = matches["team2"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
-
-matches["toss_winner"] = matches["toss_winner"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
-matches["winner"] = matches["winner"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
-
-deliveries["batting_team"] = deliveries["batting_team"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
-deliveries["bowling_team"] = deliveries["bowling_team"].replace({
-    'Delhi Daredevils': 'Delhi Capitals',
-    'Kings XI Punjab': 'Punjab Kings',
-    'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-    'Rising Pune Supergiants': 'Rising Pune Supergiant',
-})
+from data_loader import deliveries, matches, teams_info
 
 
 def get_total_teams():

@@ -16,9 +16,23 @@ const DoughnutChart = ({ height = "50vh", width = "37vw", graphHeight = "40vh", 
             try {
                 const response = await axiosInstance.get(url);
                 const data = response.data;
-                const entries = Object.entries(data);
-                setApiLabels(entries[1][1]);
-                setApiData(entries[0][1]);
+                if (data["label"] || data["labels"]) {
+                    setApiLabels(data["label"] || data["labels"]);
+                    const otherKey = Object.keys(data).find(k => k !== "label" && k !== "labels");
+                    setApiData(data[otherKey] || []);
+                } else {
+                    const entries = Object.entries(data);
+                    if (entries.length >= 2) {
+                        const firstIsString = Array.isArray(entries[0][1]) && typeof entries[0][1][0] === "string";
+                        if (firstIsString) {
+                            setApiLabels(entries[0][1]);
+                            setApiData(entries[1][1]);
+                        } else {
+                            setApiLabels(entries[1][1]);
+                            setApiData(entries[0][1]);
+                        }
+                    }
+                }
 
             } catch (error) {
                 console.error("Error fetching data:", error);

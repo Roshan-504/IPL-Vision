@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
 from flask import jsonify
+from data_loader import deliveries, matches
 
-deliveries = pd.read_csv("./datasets/deliveries.csv")
-matches = pd.read_csv("./datasets/matches.csv")
 
 def get_total_players():
     batters = deliveries["batter"].unique()
